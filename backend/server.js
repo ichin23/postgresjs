@@ -1,10 +1,12 @@
 const express = require("express");
+const cors = require('cors');
 const { STATUS_CODES } = require("http");
 const { Pool } = require("pg");
 
 const app = express()
 
 app.use(express.json());
+app.use(cors());
 
 const pool = new Pool({
     host: "localhost",
@@ -23,20 +25,21 @@ app.get("/people", async(req, res)=>{
 
 app.post("/people", async(req, res)=>{
     const people = req.body
-
+    console.log(people)
     if(!people.name || !people.cpf) return res.status(400).json("É obrigatório o nome e o CPF")
 
     const data = [
         people.name,
         people.cpf,
         people.rg,
+        people.birthday,
         people.telefone,
         people.numCartao,
         people.dataCartao,
         people.cvvCartao
     ]
 
-    const result = await pool.query("INSERT INTO people(name, cpf, rg, telefone, numCartao, dataCartao, cvvCartao) VALUES ($1, $2, $3, $4, $5, $6, $7);", data)
+    const result = await pool.query("INSERT INTO people(name, cpf, rg, birthday, telefone, numCartao, dataCartao, cvvCartao) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);", data)
 
     return res.json(result.rows[0])
 })

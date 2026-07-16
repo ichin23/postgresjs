@@ -1,0 +1,122 @@
+body{
+    height: 100vh;
+    overflow: hidden;
+    background-color: #272727;
+    color: #fff;
+}
+
+header{
+    height: 50px;
+}
+
+main{
+    height: calc(100% - 50px);
+}
+
+input{
+    height: 30px;
+    width: 100%;
+    border: 1px solid white;
+    border-radius: 6px;
+    background-color: transparent;
+    color:  white;
+    padding: 2px;
+}
+
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field,
+input[type="month"]::-webkit-datetime-edit-text,
+input[type="month"]::-webkit-datetime-edit-month-field,
+input[type="month"]::-webkit-datetime-edit-day-field,
+input[type="month"]::-webkit-datetime-edit-year-field{
+    color: white;
+}
+
+body section{
+    flex: 1;
+    width: 95vw;
+    margin: auto;
+    overflow: auto;
+    resize: vertical;
+
+}
+
+#adicionar form{
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    gap: 20px;
+}
+
+fieldset{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 10px;
+    border: none;
+    padding: 20px;
+    background-color: #383749;
+    border-radius: 12px;
+}
+fieldset legend{
+    float: left; 
+    width: 100%;
+}
+
+fieldset div{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+form button{
+    border: none;
+    width: 200px;
+    height: 40px;
+    align-self: flex-end;
+    border-radius: 6px;
+    background-color: #6d92e2;
+}
+
+.resizeBar{
+    border: 2px solid black;
+    cursor: ns-resize;
+    margin: 20px 10px;
+}
+thead, th{
+    background-color: #6d92e2 !important;
+}
+
+thead th:first-child{
+    border-top-left-radius: 12px;
+}
+
+thead th:last-child{
+    border-top-right-radius: 12px;
+}
+table, td, tr, th{
+    border-collapse: collapse;
+}
+
+td:nth-child(2)
+
+td, th{
+    padding: 10px;
+}
+
+.editButton, .delButton{
+    border: none;
+    padding: 5px;
+    border-radius: 6px;
+
+    background-color: #cac147;
+    color: #272727;
+}
+
+.delButton{
+    background-color: #db6464;
+    color: #fff;
+}
