@@ -18,9 +18,24 @@ const pool = new Pool({
 
 
 app.get("/people", async(req, res)=>{
-    const result = await pool.query("SELECT * FROM people;")
+    const order = req.query["order"]
+
+    const allowedColumns = ["id", "name", "cpf", "birthday"]; 
+    
+    const sortBy = allowedColumns.includes(order) ? order : "id";
+
+    const result = await pool.query(`SELECT * FROM people ORDER BY ${sortBy};`)
 
     return res.json(result.rows)
+})
+
+app.get("/people/:personId", async(req, res)=>{
+    const result = await pool.query("SELECT * FROM people WHERE id = $1", [req.params.personId])
+
+    if(!result.rows[0]){
+        return res.status(404).json("Pessoa não encontrada!")
+    }
+    return res.json(result.rows[0])
 })
 
 app.post("/people", async(req, res)=>{
@@ -44,8 +59,8 @@ app.post("/people", async(req, res)=>{
     return res.json(result.rows[0])
 })
 
-app.put("/people", async(req, res)=>{
-    const id = req.query["id"]
+app.put("/people/:id", async(req, res)=>{
+    const id = req.params.id
     const people = req.body
 
     if(!id) return res.status(400).json("Falta parâmetro ID")
@@ -59,6 +74,7 @@ app.put("/people", async(req, res)=>{
         people.name,
         people.cpf,
         people.rg,
+        people.birthday,
         people.telefone,
         people.numCartao,
         people.dataCartao,
@@ -66,7 +82,7 @@ app.put("/people", async(req, res)=>{
         id
     ]
 
-    const result = await pool.query("UPDATE people SET name = $1, cpf = $2, rg = $3, telefone = $4, numCartao = $5, dataCartao = $6, cvvCartao = $7 WHERE id = $8;", data)
+    const result = await pool.query("UPDATE people SET name = $1, cpf = $2, rg = $3, birthday = $4, telefone = $5, numCartao = $6, dataCartao = $7, cvvCartao = $8 WHERE id = $9;", data)
 
     return res.json(result.rows[0])
 
