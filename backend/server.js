@@ -8,13 +8,18 @@ const app = express()
 app.use(express.json());
 app.use(cors());
 
-const pool = new Pool({
+/*const pool = new Pool({
     host: "localhost",
     user: "postgres",
     password: "postgres",
     database: "pdcase",
     port: 5432
-});
+});*/
+
+const connectionString = process.env.DATABASE_URL
+const pool = new Pool({
+    connectionString
+})
 
 
 app.get("/people", async(req, res)=>{
