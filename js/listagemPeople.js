@@ -14,6 +14,22 @@ let isUpdating = false;
 
 updateListagem().then(()=>{setSize(sizeMain*0.4)})
 
+const options = { 
+  timeZone: 'UTC', 
+  year: 'numeric', 
+  month: '2-digit', 
+  day: '2-digit' 
+};
+
+const optionsVenc = { 
+  timeZone: 'UTC', 
+  year: 'numeric', 
+  month: '2-digit',
+};
+
+const formatter = new Intl.DateTimeFormat('pt-BR', options);
+const formatterVenc = new Intl.DateTimeFormat('pt-BR', optionsVenc);
+
 async function updateListagem(){
     const order = document.getElementById("orderInp").value
     console.log(order)
@@ -49,16 +65,17 @@ function renderPeople(people){
     tbody.innerHTML = ''
     let content = "" 
     people.forEach((person) => {
-        const dataCartao = person.datacartao ? new Date(person.datacartao ) :null
+        const dataCartao = person.datacartao ?  new Date(person.datacartao) :null
         const birthday = person.birthday ? new Date(person.birthday) : null
+        console.log(birthday)
         content += `
         <tr data-id="${person.id}">
             <td>#${person.id}</td>
             <td>${person.name}</td>
             <td>${formatarCpf(person.cpf)}</td>
-            <td>${birthday ? birthday.toLocaleDateString("pt-BR") : ""}</td>
+            <td>${birthday ? formatter.format(birthday): ""}</td>
             <td>${person.numcartao ? formatarCartao(person.numcartao) : ""}</td>
-            <td>${dataCartao ? formatarData(dataCartao.getUTCMonth())+"/"+dataCartao.getUTCFullYear(): ""}</td>
+            <td>${dataCartao ? formatterVenc.format(dataCartao): ""}</td>
             <td>${person.cvvcartao ?? ""}</td>
             <td>
                 <button class="editButton">Editar</button>
