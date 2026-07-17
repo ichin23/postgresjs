@@ -1,4 +1,4 @@
-import {setSize, sizeMain} from  './script.js'
+import {setSize, sizeMain} from  './layout.js'
 
 const BASE_URL = "https://postgresjs.onrender.com"
 
