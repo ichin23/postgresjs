@@ -26,7 +26,7 @@ const path = require('path');
 // Middleware de proteção
 app.use((req, res, next) => {
     // Lista de arquivos ou extensões proibidas
-    const blacklist = ['index.html', 'css/', 'js/'];
+    const blacklist = ['index.html', '/people', 'css/', 'js/'];
 
     
     // Verifica se a URL requisitada contém algum item da lista negra
