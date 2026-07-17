@@ -23,6 +23,24 @@ const pool = new Pool({
 
 const path = require('path'); 
 
+// Middleware de proteção
+app.use((req, res, next) => {
+    // Lista de arquivos ou extensões proibidas
+    const blacklist = ['index.html', 'css/', 'js/'];
+
+    
+    // Verifica se a URL requisitada contém algum item da lista negra
+    const permitidoAcessar = blacklist.some(item => req.url.includes(item)) || req.url=="/";
+
+    console.log(permitidoAcessar)
+
+    if (!permitidoAcessar) {
+        return res.status(403).send('Acesso negado.');
+    }
+    
+    next();
+});
+
 app.use(express.static(path.join(__dirname, '../')));
 
 app.get("/people", async(req, res)=>{
