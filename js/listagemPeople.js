@@ -57,7 +57,7 @@ function renderPeople(people){
             <td>${person.name}</td>
             <td>${formatarCpf(person.cpf)}</td>
             <td>${birthday ? birthday.toLocaleDateString("pt-BR") : ""}</td>
-            <td>${formatarCartao(person.numcartao) ?? ""}</td>
+            <td>${person.numcartao ? formatarCartao(person.numcartao) : ""}</td>
             <td>${dataCartao ? dataCartao.toLocaleDateString("pt-BR") : ""}</td>
             <td>${person.cvvcartao ?? ""}</td>
             <td>
