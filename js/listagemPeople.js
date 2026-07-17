@@ -58,7 +58,7 @@ function renderPeople(people){
             <td>${formatarCpf(person.cpf)}</td>
             <td>${birthday ? birthday.toLocaleDateString("pt-BR") : ""}</td>
             <td>${person.numcartao ? formatarCartao(person.numcartao) : ""}</td>
-            <td>${dataCartao ? dataCartao.getMonth()+"/"+dataCartao.getFullYear(): ""}</td>
+            <td>${dataCartao ? formatarData(dataCartao.getUTCMonth())+"/"+dataCartao.getUTCFullYear(): ""}</td>
             <td>${person.cvvcartao ?? ""}</td>
             <td>
                 <button class="editButton">Editar</button>
@@ -217,4 +217,8 @@ function formatarCartao(cpf) {
     .replace(/^(\d{4})\s(\d{4})(\d)/, "$1 $2 $3")
     .replace(/^(\d{4})\s(\d{4})\s(\d{4})(\d)/, "$1 $2 $3 $4")
     .substring(0, 19);
+}
+
+function formatarData(data){
+    return data> 10 ? data : `0${data}`
 }
