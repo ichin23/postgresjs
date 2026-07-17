@@ -20,15 +20,27 @@
     <link rel="stylesheet" href="css/styles.css">
   </head>
   <body data-bs-theme="dark">
-    <header>
-      <h1>Gerenciamento de Pessoas</h1>
+    <header >
+      <h2>Gerenciamento de Pessoas</h2>
     </header>
 
     <main>
       <section id="listagem">
-        <h3>Listagem</h3>
+        <div class="d-flex justify-content-between m-4">
+          <h3>Listagem</h3>
+          <div class="h-100">
+            <label for="orderInp">Ordenar Por:</label>
+            <select name="orderData" id="orderInp">
+              <option value="id" selected>ID</option>
+              <option value="name">Nome</option>
+              <option value="cpf">CPF</option>
+            <option value="birthday">Data Nascimento</option>
+          </select>
+        </div>
+        </div>
         <table class="table table-stripped">
           <thead>
+            <th>ID</th>
             <th>Nome</th>
             <th>CPF</th>
             <th>Data Nascimento</th>
@@ -61,56 +73,59 @@
       <section id="adicionar">
         <h3>Adicionar Pessoas</h3>
         <form class="addForm">
-          <fieldset>
+          <fieldset class="d-flex flex-wrap align-itens-end">
             <legend>Informações Pessoais</legend>
-            <div class="inputCont">
+            <div class="inputCont col-12 col-lg-2">
               <label for="nameInp">Nome</label>
               <input type="text" name="name" id="nameInp" />
             </div>
           
-            <div class="inputCont">
+            <div class="inputCont col-5 col-lg-2">
               <label for="cpfInp">CPF</label>
               <input type="text" name="cpf" id="cpfInp" />
             </div>
           
-            <div class="inputCont">
+            <div class="inputCont col-5 col-lg-2">
               <label for="rgInp">RG</label>
               <input type="text" name="rg" id="rgInp" />
             </div>
         
-            <div class="inputCont">
+            <div class="inputCont col-5 col-lg-2">
               <label for="birthdayInp">Data de aniversário</label>
               <input type="date" name="birthday" id="birthdayInp" />
             </div>
           
-            <div class="inputCont">
+            <div class="inputCont col-5 col-lg-2">
               <label for="celInp">Celular</label>
               <input type="text" name="telefone" id="celInp" />
             </div>
           </fieldset>
-          <fieldset>
+          <fieldset class="d-flex">
             <legend>Cartão</legend>
-            <div class="inputCont">
+            <div class="inputCont col-12 col-lg-3">
               <label for="numCartaoInp">Nº Cartão</label>
-              <input type="number" name="numCartao" id="numCartaoInp">
+              <input type="text" name="numCartao" id="numCartaoInp">
             </div>
 
-            <div class="inputCont">
+            <div class="inputCont col-lg-3">
               <label for="vencInp">Vencimento Cartão</label>
               <input type="month" name="dataCartao" id="vencInp">
             </div>
 
-            <div class="inputCont">
+            <div class="inputCont col-lg-3">
               <label for="cvvInp">CVV</label>
-              <input type="number" name="cvvCartao" id="cvvInp">
+              <input type="number" maxlength="4" name="cvvCartao" id="cvvInp">
             </div>
           </fieldset>
-          <button>Salvar</button>
+          <div class="buttons">
+            <button type="button" class="cancelButton hide">Cancelar</button>
+            <button>Salvar</button>
+          </div>
         </form>
       </section>
     </main>
 
-    <script src="js/script.js"></script>
+    <script type="module" src="js/layout.js"></script>
     <script type="module" src="js/listagemPeople.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

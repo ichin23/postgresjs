@@ -14,12 +14,18 @@ adicionarSec.style.maxHeight = sizeMain*0.6+"px"
 listagemSec.style.minHeight = sizeMain*0.35+"px"
 adicionarSec.style.minHeight = sizeMain*0.35+"px"
 
+let listagemBigger = true
 let isResizing = false;
 let startY = 0;
 let startHeightListagem = 0;
 let startHeightAdicionar = 0;
 
-resizeBar.addEventListener("mousedown", (e)=>{
+
+resizeBar.addEventListener("mousedown", handleClick)
+
+resizeBar.addEventListener("touch", handleTouch)
+
+function handleClick(e){
     isResizing = true;
     startY = e.clientY;
     startHeightListagem = parseInt(document.defaultView.getComputedStyle(listagemSec).height);
@@ -31,16 +37,18 @@ resizeBar.addEventListener("mousedown", (e)=>{
     // Add active drag listeners to the whole document
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', stopResize);
-})
+}
+
+function handleTouch(e){
+  //setSize(listagemBigger ? sizeMain*0.35 :  sizeMain*0.6)
+}
 
 function handleMouseMove(e) {
   if (!isResizing) return;
 
   const dy = e.clientY - startY;
 
-  console.log(sizeMain)
-  adicionarSec.style.height = `${sizeMain - barSize - (startHeightListagem+dy)}px`;
-  listagemSec.style.height =  `${startHeightListagem + dy}px`;
+  setSize(startHeightListagem + dy)
 }
 
 function stopResize() {
@@ -50,3 +58,15 @@ function stopResize() {
   document.removeEventListener('mouseup', stopResize);
 }
 
+function setSize(sizeListagem){
+  if(sizeListagem > (sizeMain - barSize - sizeListagem)){
+    listagemBigger = true;
+  }else{
+    listagemBigger = false
+  }
+
+  listagemSec.style.height =  `${sizeListagem}px`;
+  adicionarSec.style.height = `${sizeMain - barSize - sizeListagem}px`;
+}
+
+export {setSize, sizeMain}
