@@ -58,7 +58,7 @@ function renderPeople(people){
             <td>${formatarCpf(person.cpf)}</td>
             <td>${birthday ? birthday.toLocaleDateString("pt-BR") : ""}</td>
             <td>${person.numcartao ? formatarCartao(person.numcartao) : ""}</td>
-            <td>${dataCartao ? dataCartao.toLocaleDateString("pt-BR") : ""}</td>
+            <td>${dataCartao ? dataCartao.getMonth()+"/"+dataCartao.getFullYear(): ""}</td>
             <td>${person.cvvcartao ?? ""}</td>
             <td>
                 <button class="editButton">Editar</button>
