@@ -21,6 +21,9 @@ const pool = new Pool({
     connectionString
 })
 
+const path = require('path'); 
+
+app.use(express.static(path.join(__dirname, '../')));
 
 app.get("/people", async(req, res)=>{
     const order = req.query["order"]
