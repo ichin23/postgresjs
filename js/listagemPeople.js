@@ -7,6 +7,7 @@ const listagemSec = document.getElementById("listagem")
 const table = listagemSec.querySelector("table")
 const tbody = table.querySelector("tbody")
 const trTemp  = tbody.querySelector("template")
+const loading = document.querySelector(".loading")
 
 let updatingId = null;
 let isUpdating = false;
@@ -16,14 +17,15 @@ updateListagem().then(()=>{setSize(sizeMain*0.4)})
 async function updateListagem(){
     const order = document.getElementById("orderInp").value
     console.log(order)
+    loading.classList.remove("hide")
     const pessoas = await fetch(`${BASE_URL}/people?order=`+order).then(async (res)=> await res.json())
     renderPeople(pessoas)
-    
+    loading.classList.add("hide")
 
     document.querySelectorAll(".delButton").forEach(button=>{
         button.addEventListener("click", async (e)=>{
             const idItem = e.target.closest("tr").dataset.id
-            
+            loading.classList.remove("hide")
             var res = await fetch(`${BASE_URL}/people?id=`+idItem,{
                 method: "DELETE",
                 headers: {
@@ -104,7 +106,8 @@ form.addEventListener("submit", async (e)=>{
     if(rg.length!=13 && rg!="") return alert("RG Inválido")
     if(cel.length!=15 && cel!="") return alert("Celular Inválido")
     if(numCartao!="" && (numCartao.length!=19 || venc == "" || !(cvv.length==3 || cvv.length==4) )) return alert("Dados do cartão inválidos")
-
+    
+    loading.classList.remove("hide")
     var res = await fetch(isUpdating? `${BASE_URL}/people/${isUpdating ? updatingId : ""}` : `${BASE_URL}/people`,{
         method: isUpdating ? "PUT" : "POST",
         headers: {
@@ -123,6 +126,7 @@ form.addEventListener("submit", async (e)=>{
         })
     })
 
+    loading.classList.add("hide")
     if(!res.ok){
         return alert("Ocorreu um erro ao salvar os dados")
     }
@@ -154,8 +158,9 @@ document.getElementById("orderInp").addEventListener("change", ()=>{
 })
 
 async function editPerson(id){
+    loading.classList.remove("hide")
     const person = await fetch(`${BASE_URL}/people/`+id).then(async (res)=>await res.json())
-
+    loading.classList.add("hide")
     if(!person.name) return;
 
     document.querySelector(".cancelButton").classList.remove("hide")
